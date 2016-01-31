@@ -11,10 +11,11 @@ package kriptic;
  */
 public class Test {
     public static void main(String[] args) {
-        Enkripsi enc = new Enkripsi("aku pergi ke pasar", "abx");
-        System.out.println(enc.vigenere());
+        Enkripsi enc = new Enkripsi("aku pergi\nke pasar", "abx");
+        System.out.println(enc.vigenere(true));
+        
+        Enkripsi dec = new Enkripsi("BMS QGPHK IF RYTCP", "abx");
+        System.out.println(dec.vigenere(false));
+//        System.out.println(dec.vi);
     }
-    
-    
-    
 }

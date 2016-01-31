@@ -12,18 +12,18 @@ import java.util.ArrayList;
  * @author akhfa
  */
 public class Enkripsi {
-    String plain;
+    String text;
     String kunci;
     
-    public Enkripsi(String _plain, String _kunci)
+    public Enkripsi(String _text, String _kunci)
     {
-        this.plain = _plain;
+        this.text = _text;
         this.kunci = _kunci;
     }
     
-    public void setPlain(String _plain)
+    public void setPlain(String _text)
     {
-        this.plain = _plain;
+        this.text = _text;
     }
     
     public void setKunci(String _kunci)
@@ -31,45 +31,65 @@ public class Enkripsi {
         this.kunci = _kunci;
     }
     
-    public String vigenere()
+    public String vigenere(boolean encrypt)
     {
-        char [] huruf = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        char [] huruf = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         
         // Hilangkan spasi dan ubah jadi uppercase
-        this.plain = this.plain.toUpperCase();
+        this.text = this.text.toUpperCase();
         this.kunci = this.kunci.toUpperCase();
         
-        char [] plain_char = this.plain.toCharArray();
+        char [] text_char = this.text.toCharArray();
         char [] kunci_char = this.kunci.toCharArray();
-        StringBuilder result = new StringBuilder(plain_char.length);
-        char chiper = '\0';
+        StringBuilder result = new StringBuilder(text_char.length);
+        char result_char = '\0';
         
         int indexKunci = 0;
-        for(int i = 0; i < plain_char.length; i++)
+        for(int i = 0; i < text_char.length; i++)
         {
-            if(plain_char[i] != ' ')
+            if(text_char[i] != ' ' && text_char[i] != '\n')
             {
-                chiper = jumlah(huruf, plain_char[i], kunci_char[indexKunci]);
+                if(encrypt)
+                    result_char = enc(huruf, text_char[i], kunci_char[indexKunci]);
+                else
+                    result_char = dec(huruf, text_char[i], kunci_char[indexKunci]);
                 
                 if(indexKunci == kunci_char.length - 1)
                     indexKunci = 0;
                 else
                     indexKunci++;
-                result.append(chiper);
+                result.append(result_char);
             }
             else
-                result.append(" ");
+                if(text_char[i] == ' ')
+                    result.append(" ");
+                else
+                    result.append('\n');
             
         }
         return result.toString();
     }
     
-    private char jumlah(char [] huruf,char plain_char, char kunci_char)
+    private char enc(char [] huruf,char plain_char, char kunci_char)
     {
         int plain_int = getIndexOf(huruf, plain_char);
         int kunci_int = getIndexOf(huruf, kunci_char);
-        int chiper_int = ((plain_int + kunci_int) + 1) % 26;
+        int chiper_int = (plain_int + kunci_int) % 26;
         return huruf[chiper_int];
+    }
+    
+    private char dec(char [] huruf,char chiper_char, char kunci_char)
+    {
+        System.out.println("chiper_char " + chiper_char);
+        int chiper_int = getIndexOf(huruf, chiper_char);
+        System.out.println("chiper_int " + chiper_int);
+        int kunci_int = getIndexOf(huruf, kunci_char);
+        System.out.println("kunci_int " + kunci_int);
+        int plain_int = (chiper_int - kunci_int) % 26;
+        if(plain_int < 0)
+            plain_int += 26;
+        System.out.println("plain_int " + huruf[plain_int]);
+        return huruf[plain_int];
     }
     
     /**

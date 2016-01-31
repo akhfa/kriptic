@@ -33,7 +33,7 @@ public class Enkripsi {
     
     public String vigenere(boolean encrypt)
     {
-        char [] huruf = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        char [] huruf = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         
         // Hilangkan spasi dan ubah jadi uppercase
         this.text = this.text.toUpperCase();
@@ -47,7 +47,7 @@ public class Enkripsi {
         int indexKunci = 0;
         for(int i = 0; i < text_char.length; i++)
         {
-            if(getIndexOf(huruf, text_char[i]) != 0)
+            if(getIndexOf(huruf, text_char[i]) != -1)
             {
                 System.out.println("getIndex " + getIndexOf(huruf, text_char[i]));
                 if(encrypt)
@@ -98,7 +98,7 @@ public class Enkripsi {
      */
     private int getIndexOf(char [] daftarKarakter, char a)
     {
-        int result = 0;
+        int result = -1;
         for(int i = 0; i < daftarKarakter.length; i++)
         {
             if(daftarKarakter[i] == a)

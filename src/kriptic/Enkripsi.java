@@ -47,8 +47,9 @@ public class Enkripsi {
         int indexKunci = 0;
         for(int i = 0; i < text_char.length; i++)
         {
-            if(text_char[i] != ' ' && text_char[i] != '\n')
+            if(getIndexOf(huruf, text_char[i]) != 0)
             {
+                System.out.println("getIndex " + getIndexOf(huruf, text_char[i]));
                 if(encrypt)
                     result_char = enc(huruf, text_char[i], kunci_char[indexKunci]);
                 else
@@ -61,10 +62,7 @@ public class Enkripsi {
                 result.append(result_char);
             }
             else
-                if(text_char[i] == ' ')
-                    result.append(" ");
-                else
-                    result.append('\n');
+                result.append(text_char[i]);
             
         }
         return result.toString();
@@ -100,7 +98,7 @@ public class Enkripsi {
      */
     private int getIndexOf(char [] daftarKarakter, char a)
     {
-        int result = -1;
+        int result = 0;
         for(int i = 0; i < daftarKarakter.length; i++)
         {
             if(daftarKarakter[i] == a)

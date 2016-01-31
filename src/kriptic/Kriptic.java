@@ -35,6 +35,8 @@ public class Kriptic extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Encrypt_button = new javax.swing.JButton();
         Decrypt_button = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Kunci_textbox = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +66,8 @@ public class Kriptic extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Kunci");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,9 +78,13 @@ public class Kriptic extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Kunci_textbox))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Encrypt_button)
@@ -95,11 +103,15 @@ public class Kriptic extends javax.swing.JFrame {
                         .addComponent(Encrypt_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Decrypt_button)))
-                .addGap(66, 66, 66)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(Kunci_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,14 +119,14 @@ public class Kriptic extends javax.swing.JFrame {
 
     private void Encrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Encrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi enc = new Enkripsi(Plain_text.getText(), "abx");
+        Enkripsi enc = new Enkripsi(Plain_text.getText(), Kunci_textbox.getText());
         Chiper_text.setText(enc.vigenere(true));
         System.out.println(enc.vigenere(true));
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
 
     private void Decrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Decrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi dec = new Enkripsi(Chiper_text.getText(), "abx");
+        Enkripsi dec = new Enkripsi(Chiper_text.getText(), Kunci_textbox.getText());
         Plain_text.setText(dec.vigenere(false));
         System.out.println(dec.vigenere(false));
     }//GEN-LAST:event_Decrypt_buttonActionPerformed
@@ -158,9 +170,11 @@ public class Kriptic extends javax.swing.JFrame {
     private javax.swing.JTextArea Chiper_text;
     private javax.swing.JButton Decrypt_button;
     private javax.swing.JButton Encrypt_button;
+    private javax.swing.JTextField Kunci_textbox;
     private javax.swing.JTextArea Plain_text;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

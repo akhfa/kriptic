@@ -72,21 +72,17 @@ public class Enkripsi {
     {
         int plain_int = getIndexOf(huruf, plain_char);
         int kunci_int = getIndexOf(huruf, kunci_char);
-        int chiper_int = (plain_int + kunci_int) % 26;
+        int chiper_int = (plain_int + kunci_int) % huruf.length;
         return huruf[chiper_int];
     }
     
     private char dec(char [] huruf,char chiper_char, char kunci_char)
     {
-        System.out.println("chiper_char " + chiper_char);
         int chiper_int = getIndexOf(huruf, chiper_char);
-        System.out.println("chiper_int " + chiper_int);
         int kunci_int = getIndexOf(huruf, kunci_char);
-        System.out.println("kunci_int " + kunci_int);
-        int plain_int = (chiper_int - kunci_int) % 26;
+        int plain_int = (chiper_int - kunci_int) % huruf.length;
         if(plain_int < 0)
-            plain_int += 26;
-        System.out.println("plain_int " + huruf[plain_int]);
+            plain_int += huruf.length;
         return huruf[plain_int];
     }
     

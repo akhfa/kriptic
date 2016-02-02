@@ -102,6 +102,13 @@ public class Enkripsi {
         return result;
     }
     
+    /**
+     * Daftar huruf yang menunjukkan indeks "posisi" dari suatu karakter
+     * @param huruf Daftar huruf yang menunjukkan indeks "posisi" dari suatu karakter
+     * @param plain_char Karakter chiper yang akan didekrip
+     * @param kunci_char Karakter kunci
+     * @return Char yang telah dienkrip
+     */
     private char enc(char [] huruf,char plain_char, char kunci_char)
     {
         int plain_int = getIndexOf(huruf, plain_char);
@@ -110,6 +117,13 @@ public class Enkripsi {
         return huruf[chiper_int];
     }
     
+    /**
+     * Melakukan dekripsi menggunakan perhitungan vigenere chiper
+     * @param huruf Daftar huruf yang menunjukkan indeks "posisi" dari suatu karakter
+     * @param chiper_char Karakter chiper yang akan didekrip
+     * @param kunci_char Karakter kunci
+     * @return Char yang telah didekrip
+     */
     private char dec(char [] huruf,char chiper_char, char kunci_char)
     {
         int chiper_int = getIndexOf(huruf, chiper_char);
@@ -124,7 +138,7 @@ public class Enkripsi {
      * Mencari index karakter a pada array of karakter daftarKarakter
      * @param daftarKarakter
      * @param a
-     * @return 
+     * @return Indeks dari karakter yang dicari. -1 jika tidak ditemukan
      */
     private int getIndexOf(char [] daftarKarakter, char a)
     {
@@ -138,10 +152,5 @@ public class Enkripsi {
         }
         return result;
     }
-    
-    public String vigenere_ascii(String plain)
-    {
-        
-        return "";
-    }
+
 }

@@ -28,9 +28,9 @@ public class Kriptic extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        Plain_text = new javax.swing.JTextArea();
+        Asal_text = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Chiper_text = new javax.swing.JTextArea();
+        Hasil_text = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Encrypt_button = new javax.swing.JButton();
@@ -40,17 +40,21 @@ public class Kriptic extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Plain_text.setColumns(20);
-        Plain_text.setRows(5);
-        jScrollPane1.setViewportView(Plain_text);
+        Asal_text.setColumns(20);
+        Asal_text.setLineWrap(true);
+        Asal_text.setRows(5);
+        jScrollPane1.setViewportView(Asal_text);
 
-        Chiper_text.setColumns(20);
-        Chiper_text.setRows(5);
-        jScrollPane2.setViewportView(Chiper_text);
+        Hasil_text.setEditable(false);
+        Hasil_text.setBackground(new java.awt.Color(204, 204, 204));
+        Hasil_text.setColumns(20);
+        Hasil_text.setLineWrap(true);
+        Hasil_text.setRows(5);
+        jScrollPane2.setViewportView(Hasil_text);
 
-        jLabel1.setText("Plain Text");
+        jLabel1.setText("Text (Plain / Chiper)");
 
-        jLabel2.setText("Chiper Text");
+        jLabel2.setText("Hasil");
 
         Encrypt_button.setText("Encrypt");
         Encrypt_button.addActionListener(new java.awt.event.ActionListener() {
@@ -107,11 +111,11 @@ public class Kriptic extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Kunci_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,14 +123,14 @@ public class Kriptic extends javax.swing.JFrame {
 
     private void Encrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Encrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi enc = new Enkripsi(Plain_text.getText(), Kunci_textbox.getText());
-        Chiper_text.setText(enc.vigenere(false, true));
+        Enkripsi enc = new Enkripsi(Asal_text.getText(), Kunci_textbox.getText());
+        Hasil_text.setText(enc.vigenere(true, true));
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
 
     private void Decrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Decrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi dec = new Enkripsi(Chiper_text.getText(), Kunci_textbox.getText());
-        Plain_text.setText(dec.vigenere(false, false));
+        Enkripsi dec = new Enkripsi(Asal_text.getText(), Kunci_textbox.getText());
+        Hasil_text.setText(dec.vigenere(true, false));
     }//GEN-LAST:event_Decrypt_buttonActionPerformed
 
     /**
@@ -165,11 +169,11 @@ public class Kriptic extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea Chiper_text;
+    private javax.swing.JTextArea Asal_text;
     private javax.swing.JButton Decrypt_button;
     private javax.swing.JButton Encrypt_button;
+    private javax.swing.JTextArea Hasil_text;
     private javax.swing.JTextField Kunci_textbox;
-    private javax.swing.JTextArea Plain_text;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

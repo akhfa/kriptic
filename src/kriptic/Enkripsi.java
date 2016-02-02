@@ -31,13 +31,22 @@ public class Enkripsi {
         this.kunci = _kunci;
     }
     
+    /**
+     * Fungsi untuk melakukan enkripsi ataupun dekripsi vigenere. 
+     * @param basic Menandakan vigenere mana yang akan digunakan. True untuk basic, false untuk ext
+     * @param encrypt Menandakan apakah akan memanggil fungsi encrypt atau decrypt
+     * @return Sring hasil enkripsi maupun deskripsi
+     */
     public String vigenere(boolean basic, boolean encrypt)
     {
         char [] huruf = this.getString(basic).toCharArray();
             
         // Hilangkan spasi dan ubah jadi uppercase
-        this.text = this.text.toUpperCase();
-        this.kunci = this.kunci.toUpperCase();
+        if(basic)
+        {
+            this.text = this.text.toUpperCase();
+            this.kunci = this.kunci.toUpperCase();
+        }
         
         char [] text_char = this.text.toCharArray();
         char [] kunci_char = this.kunci.toCharArray();
@@ -67,6 +76,12 @@ public class Enkripsi {
         return result.toString();
     }
     
+    /**
+     * Mendapatkan semua char yang bisa di enkrip atau decrypt. Char dibentuk menjadi string.
+     * @param basic Apakah string digunakan untuk vigenere basik atau ext. 
+     * True jika basic, dan false jika ext.
+     * @return String yang beranggotakan char yang dapat di enkrip dekrip
+     */
     private String getString(boolean basic)
     {
         String result = "";

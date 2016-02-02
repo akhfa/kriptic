@@ -120,15 +120,13 @@ public class Kriptic extends javax.swing.JFrame {
     private void Encrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Encrypt_buttonActionPerformed
         // TODO add your handling code here:
         Enkripsi enc = new Enkripsi(Plain_text.getText(), Kunci_textbox.getText());
-        Chiper_text.setText(enc.vigenere(true));
-        System.out.println(enc.vigenere(true));
+        Chiper_text.setText(enc.vigenere(false, true));
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
 
     private void Decrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Decrypt_buttonActionPerformed
         // TODO add your handling code here:
         Enkripsi dec = new Enkripsi(Chiper_text.getText(), Kunci_textbox.getText());
-        Plain_text.setText(dec.vigenere(false));
-        System.out.println(dec.vigenere(false));
+        Plain_text.setText(dec.vigenere(false, false));
     }//GEN-LAST:event_Decrypt_buttonActionPerformed
 
     /**

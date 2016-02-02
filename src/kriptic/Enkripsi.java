@@ -31,10 +31,10 @@ public class Enkripsi {
         this.kunci = _kunci;
     }
     
-    public String vigenere(boolean encrypt)
+    public String vigenere(boolean basic, boolean encrypt)
     {
-        char [] huruf = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        
+        char [] huruf = this.getString(basic).toCharArray();
+            
         // Hilangkan spasi dan ubah jadi uppercase
         this.text = this.text.toUpperCase();
         this.kunci = this.kunci.toUpperCase();
@@ -49,7 +49,6 @@ public class Enkripsi {
         {
             if(getIndexOf(huruf, text_char[i]) != -1)
             {
-                System.out.println("getIndex " + getIndexOf(huruf, text_char[i]));
                 if(encrypt)
                     result_char = enc(huruf, text_char[i], kunci_char[indexKunci]);
                 else
@@ -66,6 +65,26 @@ public class Enkripsi {
             
         }
         return result.toString();
+    }
+    
+    private String getString(boolean basic)
+    {
+        String result = "";
+        if(basic)
+        {
+            result = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            
+        }
+        else
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < 255; i++)
+            {
+                builder.append((char)i);
+            }
+            result = builder.toString();
+        }
+        return result;
     }
     
     private char enc(char [] huruf,char plain_char, char kunci_char)

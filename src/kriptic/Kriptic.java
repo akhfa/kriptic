@@ -153,22 +153,33 @@ public class Kriptic extends javax.swing.JFrame {
 
     private void Encrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Encrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi enc = new Enkripsi(Asal_text.getText(), Kunci_textbox.getText());
         if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
-            Hasil_text.setText(enc.vigenere(true, true));
+        {
+            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
+            Hasil_text.setText(vigenere.encrypt());
+        }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
-            Hasil_text.setText(enc.vigenere(false, true));
+        {
+            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
+            Hasil_text.setText(vigenere.encrypt());
+        }
+            
         else
             JOptionPane.showMessageDialog(null, "salah");
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
 
     private void Decrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Decrypt_buttonActionPerformed
         // TODO add your handling code here:
-        Enkripsi dec = new Enkripsi(Asal_text.getText(), Kunci_textbox.getText());
         if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
-            Hasil_text.setText(dec.vigenere(true, false));
+        {
+            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
+            Hasil_text.setText(vigenere.decrypt());
+        }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
-            Hasil_text.setText(dec.vigenere(false, false));
+        {
+            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
+            Hasil_text.setText(vigenere.decrypt());
+        }
         else
             JOptionPane.showMessageDialog(null, "salah");
     }//GEN-LAST:event_Decrypt_buttonActionPerformed

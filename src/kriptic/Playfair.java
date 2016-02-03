@@ -20,12 +20,6 @@ public class Playfair implements Enkripsi{
     }
     
     public static void main(String[] args) {
-        char [][] huruf = {
-            {'1','2','3'},
-            {'4','5','6'},
-            {'7','8','9'},
-            {'1','1','1'}
-        };
         
         Playfair playfair = new Playfair("GOOD BROOMS SWEEP CLEAN", "STANDERCHBK");
 //        playfair.print_matrix(huruf);
@@ -105,7 +99,7 @@ public class Playfair implements Enkripsi{
      * 1. Mengubah menjadi uppercase
      * 2. Mereplace J menjadi I
      * 3. Menghilangkan semua karakter bukan huruf
-     * @param text Text yang akan di parse
+     * @param encrypt Apakah parse digunakan untuk encrypt atau decrypt
      * @return String hasil parse
      */
     public String parse(boolean encrypt)
@@ -196,7 +190,6 @@ public class Playfair implements Enkripsi{
         while(!this.isStringUnique(input))
         {
             Couple same_char_index = this.get_first_last(input);
-//            System.out.println("last index " + same_char_index.get_last());
             result_builder.deleteCharAt(same_char_index.get_last());
             input = result_builder.toString();
         }
@@ -279,7 +272,7 @@ public class Playfair implements Enkripsi{
             Point last = this.get_posisi(matriks_key, bigrams[i].get_last());
             
             // Kondisi pergeseran enkripsi
-            int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+            int first_x, first_y, last_x, last_y;
             
             // jika dalam 1 baris, geser ke kanan 1 huruf
             if(first.get_x() == last.get_x())
@@ -340,7 +333,7 @@ public class Playfair implements Enkripsi{
             Point last = this.get_posisi(matriks_key, bigrams[i].get_last());
             
             // Kondisi pergeseran enkripsi
-            int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+            int first_x, first_y, last_x, last_y;
             
             // jika dalam 1 baris, geser ke kiri 1 huruf
             if(first.get_x() == last.get_x())

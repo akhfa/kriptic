@@ -163,7 +163,11 @@ public class Kriptic extends javax.swing.JFrame {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
             Hasil_text.setText(vigenere.encrypt());
         }
-            
+        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
+        {
+            Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
+            Hasil_text.setText(playfair.encrypt());
+        }
         else
             JOptionPane.showMessageDialog(null, "salah");
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
@@ -179,6 +183,11 @@ public class Kriptic extends javax.swing.JFrame {
         {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
             Hasil_text.setText(vigenere.decrypt());
+        }
+        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
+        {
+            Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
+            Hasil_text.setText(playfair.decrypt());
         }
         else
             JOptionPane.showMessageDialog(null, "salah");

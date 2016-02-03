@@ -19,5 +19,7 @@ public interface Enkripsi {
     
     public abstract String decrypt();
     
+    public abstract String getPlain();
     
+    public abstract String getKunci();
 }

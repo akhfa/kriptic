@@ -248,4 +248,14 @@ public class Vigenere implements Enkripsi{
         }
         return result.toString();
     }
+
+    @Override
+    public String getPlain() {
+        return this.text;
+    }
+
+    @Override
+    public String getKunci() {
+        return this.kunci;
+    }
 }

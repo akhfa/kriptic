@@ -25,5 +25,12 @@ public class Couple {
     {
         return last;
     }
-            
+    public void set_first(int _first)
+    {
+        this.first = _first;
+    }
+    public void set_last(int _last)
+    {
+        this.last = _last;
+    }
 }

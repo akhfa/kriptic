@@ -162,7 +162,7 @@ public class Enkripsi {
             {'1','1','1'}
         };
         
-        Enkripsi enc = new Enkripsi("", "");
+        Enkripsi enc = new Enkripsi("sidvneidne evn eji", "");
         enc.print_matrix(huruf);
         
         String test = "aku lungo pergi di pasar".toUpperCase();
@@ -170,7 +170,55 @@ public class Enkripsi {
         char [][] test2 = enc.get_matrix_key(enc.get_string_unique_char(test.replaceAll(" ", "")));
         enc.print_matrix(test2);
         System.out.println(enc.get_string_unique_char(test.replaceAll(" ", "")));
+        System.out.println(enc.parse("haii ii"));
 //        System.out.println(new StringBuilder("aka").deleteCharAt(2).toString());
+
+        enc.print_bigram(enc.get_bigram());
+    }
+    
+    private Bigram [] get_bigram()
+    {
+        String text = this.parse(this.text);
+        Bigram [] bigram = new Bigram[text.length() / 2];
+        int indeks_bigram = 0;
+        
+        for(int i = 0; i < text.length(); i+=2)
+        {
+            bigram[indeks_bigram] = new Bigram(text.charAt(i), text.charAt(i+1));
+            indeks_bigram++;
+        }
+        return bigram;
+    }
+    
+    private void print_bigram(Bigram [] bigrams)
+    {
+        for (Bigram bigram : bigrams) {
+            System.out.println("[" + bigram.get_first() + ", " + bigram.get_last() + "]");
+        }
+    }
+    
+    private String parse(String text)
+    {
+        text = text.toUpperCase();
+        text = text.replaceAll("J", "I");
+        text = text.replaceAll("[^A-Z]", "");
+        
+        // Cari huruf yang sama dan bersebelahan
+        for (int i = 1; i < text.length(); i++)
+        {
+            if(text.charAt(i) == text.charAt(i-1))
+            {
+                text = new StringBuilder(text).insert(i, 'Z').toString();
+            }
+        }
+        
+        // Jika jumlah karakter ganjil, tambahkan z di belakang sendiri
+        if(text.length()%2 != 0)
+        {
+            text = new StringBuilder(text).insert(text.length(), 'Z').toString();
+        }
+        
+        return text;
     }
     
     /**

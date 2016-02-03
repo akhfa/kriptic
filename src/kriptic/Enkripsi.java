@@ -5,8 +5,6 @@
  */
 package kriptic;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author akhfa
@@ -153,4 +151,99 @@ public class Enkripsi {
         return result;
     }
 
+    /* =================== Fungsi untuk playfair ========================== */
+    //public String 
+    
+    public static void main(String[] args) {
+        char [][] huruf = {
+            {'1','2','3'},
+            {'4','5','6'},
+            {'7','8','9'},
+            {'1','1','1'}
+        };
+        
+        Enkripsi enc = new Enkripsi("", "");
+        enc.print_matrix(huruf);
+        System.out.println(enc.get_string_unique_char("aku lungo pergi di pasar"));
+//        System.out.println(new StringBuilder("aka").deleteCharAt(2).toString());
+    }
+    
+    private char [][] get_matrix_key (String kunci)
+    {
+        char [][] matrix_key = {
+            {'A','B','C','D','E'},
+            {'F','G','H','J','K'},
+            {'A','B','C','D','E'},
+            {'A','B','C','D','E'},
+            {'A','B','C','D','E'},
+        };
+        return matrix_key;
+    }
+    
+    private String get_string_unique_char(String input)
+    {
+        StringBuilder result_builder = new StringBuilder(input);
+        
+        while(!this.isStringUnique(input))
+        {
+            Couple same_char_index = this.get_first_last(input);
+            System.out.println("last index " + same_char_index.get_last());
+            result_builder.deleteCharAt(same_char_index.get_last());
+            input = result_builder.toString();
+        }
+        return result_builder.toString();
+    }
+    
+    /**
+     * Mendapatkan first dan last index karakter yang sama pada suatu string
+     * @param input String yang dicek
+     * @return -1,-1 jika unique atau index awal dan akhir karakter yang sama
+     */
+    private Couple get_first_last(String input)
+    {
+        boolean unique = true;
+        int first = -1, last = -1;
+        char [] input_char = input.toCharArray();
+        for(int i = 0; i < input_char.length; i++)
+        {
+            if(i != input.lastIndexOf(input_char[i]))
+            {
+                unique = false;
+                first = i;
+                last = input.lastIndexOf(input_char[i]);
+            }
+        }
+        return new Couple(first, last);
+    }
+    
+    private boolean isStringUnique(String input)
+    {
+        boolean unique = true;
+        char [] input_char = input.toCharArray();
+        for(int i = 0; i < input_char.length; i++)
+        {
+            if(i != input.lastIndexOf(input_char[i]))
+            {
+                unique = false;
+            }
+        }
+        return unique;
+    }
+    
+//    private boolean isExistInMatrix(char [][] matrix, char huruf)
+//    {
+//        for 
+//    }
+    
+    private void print_matrix(char [][] huruf)
+    {
+        for(int i = 0; i < huruf.length; i++)
+        {
+            for (int j = 0; j < huruf[i].length; j++)
+            {
+                System.out.print(huruf[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }

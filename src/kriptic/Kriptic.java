@@ -5,6 +5,7 @@
  */
 package kriptic;
 
+import com.google.common.base.Splitter;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class Kriptic extends javax.swing.JFrame {
 
+    String result;
+    
     /**
      * Creates new form Kriptic
      */
@@ -50,6 +53,7 @@ public class Kriptic extends javax.swing.JFrame {
         vigenere_basic_radio = new javax.swing.JRadioButton();
         vigenere_ext_radio = new javax.swing.JRadioButton();
         playfair_radio = new javax.swing.JRadioButton();
+        show_combobox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +95,13 @@ public class Kriptic extends javax.swing.JFrame {
 
         playfair_radio.setText("Playfair");
 
+        show_combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Tanpa spasi", "5 huruf" }));
+        show_combobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                show_comboboxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +124,8 @@ public class Kriptic extends javax.swing.JFrame {
                                 .addComponent(Decrypt_button)
                                 .addComponent(vigenere_basic_radio)
                                 .addComponent(vigenere_ext_radio, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(playfair_radio)))
+                            .addComponent(playfair_radio)
+                            .addComponent(show_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -132,9 +144,7 @@ public class Kriptic extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(Kunci_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Encrypt_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,6 +155,10 @@ public class Kriptic extends javax.swing.JFrame {
                         .addComponent(vigenere_ext_radio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(playfair_radio)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(show_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -156,17 +170,23 @@ public class Kriptic extends javax.swing.JFrame {
         if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
         {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
-            Hasil_text.setText(vigenere.encrypt());
+            result = vigenere.encrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
         {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
-            Hasil_text.setText(vigenere.encrypt());
+            result = vigenere.encrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
         {
             Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
-            Hasil_text.setText(playfair.encrypt());
+            result = playfair.encrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else
             JOptionPane.showMessageDialog(null, "salah");
@@ -177,22 +197,66 @@ public class Kriptic extends javax.swing.JFrame {
         if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
         {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
-            Hasil_text.setText(vigenere.decrypt());
+            result = vigenere.decrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
         {
             Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
-            Hasil_text.setText(vigenere.decrypt());
+            result = vigenere.decrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
         {
             Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
-            Hasil_text.setText(playfair.decrypt());
+            result = playfair.decrypt();
+            String value = show_combobox.getSelectedItem().toString();
+            this.setOutput(value);
         }
         else
             JOptionPane.showMessageDialog(null, "salah");
     }//GEN-LAST:event_Decrypt_buttonActionPerformed
 
+    private void show_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_comboboxActionPerformed
+        // TODO add your handling code here:
+        String value = show_combobox.getSelectedItem().toString();
+        this.setOutput(value);
+//        JOptionPane.showMessageDialog(null, value);
+    }//GEN-LAST:event_show_comboboxActionPerformed
+    
+    private void setOutput(String value)
+    {
+        if(result!=null)
+        {
+            if(value.equals("Standard"))
+                Hasil_text.setText(this.result);
+            else if(value.equals("Tanpa spasi"))
+                Hasil_text.setText(this.removeAllSpace());
+            else 
+            {
+                Hasil_text.setText(this.five_words());
+            }
+        }
+    }
+    
+    private String removeAllSpace()
+    {
+        return result.replaceAll(" ", "");
+    }
+    
+    private String five_words()
+    {
+        String show = "";
+        Iterable<String> pieces = Splitter.fixedLength(5).split(this.result.replaceAll(" ", ""));
+        for (String piece : pieces) {
+            show = show + piece + " ";
+        }
+        show = show.substring(0, show.length() - 1);
+        return show;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -241,6 +305,7 @@ public class Kriptic extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton playfair_radio;
+    private javax.swing.JComboBox<String> show_combobox;
     private javax.swing.JRadioButton vigenere_basic_radio;
     private javax.swing.JRadioButton vigenere_ext_radio;
     // End of variables declaration//GEN-END:variables

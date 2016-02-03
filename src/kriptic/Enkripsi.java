@@ -176,6 +176,10 @@ public class Enkripsi {
         enc.print_bigram(enc.get_bigram());
     }
     
+    /**
+     * Mendapatkan bigram-bigram dari text yang diinputkan
+     * @return Array of bigram hasil dari pengolahan string
+     */
     private Bigram [] get_bigram()
     {
         String text = this.parse(this.text);
@@ -190,6 +194,10 @@ public class Enkripsi {
         return bigram;
     }
     
+    /**
+     * Mencetak array of bigram dalam format [first,last]
+     * @param bigrams Array of bigram yang akan dicetak
+     */
     private void print_bigram(Bigram [] bigrams)
     {
         for (Bigram bigram : bigrams) {
@@ -197,6 +205,29 @@ public class Enkripsi {
         }
     }
     
+    /**
+     * Mendapatkan string dari array of bigram untuk ditampilkan
+     * @param bigrams Array of bigram yang ingin dijadikan string
+     * @return String dari nilai bigram-bigram yang dimasukkan
+     */
+    private String get_bigram_string(Bigram [] bigrams)
+    {
+        String result = "";
+        for (Bigram bigram : bigrams) {
+            result = result + bigram.get_first() + bigram.get_last() + " ";
+        }
+        result = result.substring(0, result.length() - 1);
+        return result;
+    }
+    
+    /**
+     * Melakukan parse terhadap suatu string. Parsing tersebut meliputi
+     * 1. Mengubah menjadi uppercase
+     * 2. Mereplace J menjadi I
+     * 3. Menghilangkan semua karakter bukan huruf
+     * @param text Text yang akan di parse
+     * @return String hasil parse
+     */
     private String parse(String text)
     {
         text = text.toUpperCase();
@@ -265,15 +296,14 @@ public class Enkripsi {
             }
         }
         
-//            {'A','B','C','D','E'},
-//            {'F','G','H','J','K'},
-//            {'A','B','C','D','E'},
-//            {'A','B','C','D','E'},
-//            {'A','B','C','D','E'},
-//        };
         return matrix_key;
     }
     
+    /**
+     * Mendapatkan string dengan char-char yang unik
+     * @param input String yang ingin dijadikan unik karakternya
+     * @return String yang karakternya sudah unik
+     */
     private String get_string_unique_char(String input)
     {
         StringBuilder result_builder = new StringBuilder(input);
@@ -310,6 +340,11 @@ public class Enkripsi {
         return new Couple(first, last);
     }
     
+    /**
+     * Mengecek apakah karakter yang ada pada suatu string sudah unik semua
+     * @param input String yang akan dicek unik atau tidak
+     * @return True jika karakternya unik, false jika tidak
+     */
     private boolean isStringUnique(String input)
     {
         boolean unique = true;
@@ -324,18 +359,17 @@ public class Enkripsi {
         return unique;
     }
     
-//    private boolean isExistInMatrix(char [][] matrix, char huruf)
-//    {
-//        for 
-//    }
-    
-    private void print_matrix(char [][] huruf)
+    /**
+     * Mencetak matrik
+     * @param matriks Matrik yang ingin dicetak
+     */
+    private void print_matrix(char [][] matriks)
     {
-        for(int i = 0; i < huruf.length; i++)
+        for(int i = 0; i < matriks.length; i++)
         {
-            for (int j = 0; j < huruf[i].length; j++)
+            for (int j = 0; j < matriks[i].length; j++)
             {
-                System.out.print(huruf[i][j]);
+                System.out.print(matriks[i][j]);
             }
             System.out.println();
         }

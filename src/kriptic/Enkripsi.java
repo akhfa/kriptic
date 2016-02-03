@@ -164,19 +164,65 @@ public class Enkripsi {
         
         Enkripsi enc = new Enkripsi("", "");
         enc.print_matrix(huruf);
-        System.out.println(enc.get_string_unique_char("aku lungo pergi di pasar"));
+        
+        String test = "aku lungo pergi di pasar".toUpperCase();
+        System.out.println(enc.get_string_unique_char(test.replaceAll(" ", "")));
+        char [][] test2 = enc.get_matrix_key(enc.get_string_unique_char(test.replaceAll(" ", "")));
+        enc.print_matrix(test2);
+        System.out.println(enc.get_string_unique_char(test.replaceAll(" ", "")));
 //        System.out.println(new StringBuilder("aka").deleteCharAt(2).toString());
     }
     
-    private char [][] get_matrix_key (String kunci)
+    /**
+     * Membuat matriks key
+     * @param unique_key Key yang sudah dibuat unique, sehingga tidak ada spasi 
+     * dan huruf yang sama
+     * @return Char [][] kunci
+     */
+    private char [][] get_matrix_key (String unique_key)
     {
-        char [][] matrix_key = {
-            {'A','B','C','D','E'},
-            {'F','G','H','J','K'},
-            {'A','B','C','D','E'},
-            {'A','B','C','D','E'},
-            {'A','B','C','D','E'},
-        };
+        char [][] matrix_key = new char[5][5];
+        char [] unique_key_array = unique_key.toCharArray();
+        int i = 0;
+        int j = 0;
+        
+        // masukkan kunci ke matriks
+        for (int k = 0; k < unique_key.length(); k++)
+        {
+            matrix_key[i][j] = unique_key_array[k];
+            j++;
+            
+            // Jika pengisian sudah sampai kolom terakhir
+            if(j == 5)
+            {
+                j = 0;
+                i++;
+            }
+        }
+        
+        String remaining_char = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+        for(int l = 0; l < remaining_char.length(); l++)
+        {
+            // jika remaining karakter tidak ada di unique key, masukkan ke matriks sisanya
+            if(unique_key.indexOf(remaining_char.charAt(l)) == -1)
+            {
+                matrix_key[i][j] = remaining_char.charAt(l);
+                j++;
+                // Jika pengisian sudah sampai kolom terakhir
+                if(j == 5)
+                {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+        
+//            {'A','B','C','D','E'},
+//            {'F','G','H','J','K'},
+//            {'A','B','C','D','E'},
+//            {'A','B','C','D','E'},
+//            {'A','B','C','D','E'},
+//        };
         return matrix_key;
     }
     
@@ -187,7 +233,7 @@ public class Enkripsi {
         while(!this.isStringUnique(input))
         {
             Couple same_char_index = this.get_first_last(input);
-            System.out.println("last index " + same_char_index.get_last());
+//            System.out.println("last index " + same_char_index.get_last());
             result_builder.deleteCharAt(same_char_index.get_last());
             input = result_builder.toString();
         }

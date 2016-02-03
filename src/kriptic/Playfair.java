@@ -39,21 +39,30 @@ public class Playfair implements Enkripsi{
 ////        System.out.println(new StringBuilder("aka").deleteCharAt(2).toString());
 //
 //        playfair.print_bigram(playfair.get_bigram());
+
+
         System.err.println("plain " + playfair.getPlain());
         System.err.println("kunci " + playfair.getKunci());
-        System.err.println(playfair.parse());
-        System.err.println(playfair.get_bigram_string(playfair.get_bigram()));
+        System.err.println(playfair.parse(true));
+        System.err.println(playfair.get_bigram_string(playfair.get_bigram(true)));
         playfair.print_matrix(playfair.get_matrix_key());
         System.out.println(playfair.encrypt());
+        
+//        System.out.println("===================================");
+//        
+        Playfair playfair2 = new Playfair("FP WU BL FW WU VE VD VR VB XG KB ND", "STANDERCHBK");
+        System.err.println(playfair2.get_bigram_string(playfair2.get_bigram(false)));
+        System.out.println(playfair2.decrypt());
     }
     
     /**
      * Mendapatkan bigram-bigram dari text yang diinputkan
      * @return Array of bigram hasil dari pengolahan string
      */
-    private Bigram [] get_bigram()
+    private Bigram [] get_bigram(boolean encrypt)
     {
-        String text = this.parse();
+        this.text = this.parse(encrypt);
+
         Bigram [] bigram = new Bigram[text.length() / 2];
         int indeks_bigram = 0;
         
@@ -99,25 +108,28 @@ public class Playfair implements Enkripsi{
      * @param text Text yang akan di parse
      * @return String hasil parse
      */
-    public String parse()
+    public String parse(boolean encrypt)
     {
         text = text.toUpperCase();
         text = text.replaceAll("J", "I");
         text = text.replaceAll("[^A-Z]", "");
         
-        // Cari huruf yang sama dan bersebelahan
-        for (int i = 1; i < text.length(); i++)
+        if(encrypt)
         {
-            if(text.charAt(i) == text.charAt(i-1))
+            // Cari huruf yang sama dan bersebelahan
+            for (int i = 1; i < text.length(); i++)
             {
-                text = new StringBuilder(text).insert(i, 'Z').toString();
+                if(text.charAt(i) == text.charAt(i-1))
+                {
+                    text = new StringBuilder(text).insert(i, 'Z').toString();
+                }
             }
-        }
-        
-        // Jika jumlah karakter ganjil, tambahkan z di belakang sendiri
-        if(text.length()%2 != 0)
-        {
-            text = new StringBuilder(text).insert(text.length(), 'Z').toString();
+
+            // Jika jumlah karakter ganjil, tambahkan z di belakang sendiri
+            if(text.length()%2 != 0)
+            {
+                text = new StringBuilder(text).insert(text.length(), 'Z').toString();
+            }
         }
         
         return text;
@@ -260,7 +272,7 @@ public class Playfair implements Enkripsi{
 
     @Override
     public String encrypt() {
-        Bigram [] bigrams = this.get_bigram();
+        Bigram [] bigrams = this.get_bigram(true);
         char [][] matriks_key = this.get_matrix_key();
         for(int i = 0; i < bigrams.length; i++) {
             Point first = this.get_posisi(matriks_key, bigrams[i].get_first());
@@ -274,28 +286,20 @@ public class Playfair implements Enkripsi{
             {
                 // geser ke kanan 1 langkah
                 first_x = first.get_x();
-                first_y = first.get_y() + 1;
+                first_y = (first.get_y() + 1) % 5;
                 last_x = last.get_x();
-                last_y = last.get_y() + 1;
+                last_y = (last.get_y() + 1) % 5;
                 
-                if(first_y == matriks_key.length)
-                    first_y = 0;
-                if(last_y == matriks_key.length)
-                    last_y = 0;
             }
             //jika dalam 1 kolom, geser ke bawah 1 huruf
             else if(first.get_y() == last.get_y())
             {
                 // geser ke bawah 1 langkah
-                first_x = first.get_x() + 1;
+                first_x = (first.get_x() + 1) % 5;
                 first_y = first.get_y();
-                last_x = last.get_x() + 1;
+                last_x = (last.get_x() + 1) % 5;
                 last_y = last.get_y();
                 
-                if(first_x == matriks_key.length)
-                    first_x = 0;
-                if(last_x == matriks_key.length)
-                    last_x = 0;
             }
             else // tukar Y nya
             {
@@ -326,40 +330,49 @@ public class Playfair implements Enkripsi{
         }
         return new Point(x, y);
     }
-//    public boolean is_same_row(char [][] matriks, char a, char b)
-//    {
-//        boolean same = false;
-//        for(int i = 0; i < matriks.length ; i++)
-//        {
-//            String temp = new String (matriks[i]);
-//            if(temp.indexOf(a) != -1  && temp.indexOf(b) != -1)
-//            {
-//                same = true;
-//            }
-//        }
-//        return same;
-//    }
-    
-//    public boolean is_same_column(char [][] matriks, char a, char b)
-//    {
-//        boolean same = false;
-//        for(int i = 0; i < matriks.length ; i++)
-//        {
-//            for(int j = 0; j < matriks[i].length; i++)
-//            {
-//                String temp = new String (matriks[i]);
-//                if(temp.indexOf(a) != -1  && temp.indexOf(b) != -1)
-//                {
-//                    same = true;
-//                }
-//            }
-//        }
-//        return same;
-//    }
 
     @Override
     public String decrypt() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Bigram [] bigrams = this.get_bigram(false);
+        char [][] matriks_key = this.get_matrix_key();
+        for(int i = 0; i < bigrams.length; i++) {
+            Point first = this.get_posisi(matriks_key, bigrams[i].get_first());
+            Point last = this.get_posisi(matriks_key, bigrams[i].get_last());
+            
+            // Kondisi pergeseran enkripsi
+            int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+            
+            // jika dalam 1 baris, geser ke kiri 1 huruf
+            if(first.get_x() == last.get_x())
+            {
+                // geser ke kanan 1 langkah
+                first_x = first.get_x();
+                first_y = (first.get_y() + 4) % 5;
+                last_x = last.get_x();
+                last_y = (last.get_y() + 4) % 5;
+                
+            }
+            //jika dalam 1 kolom, geser ke atas 1 huruf
+            else if(first.get_y() == last.get_y())
+            {
+                // geser ke bawah 1 langkah
+                first_x = (first.get_x() + 4) % 5;
+                first_y = first.get_y();
+                last_x = (last.get_x() + 4) % 5;
+                last_y = last.get_y();
+
+            }
+            else // tukar Y nya
+            {
+                first_x = first.get_x();
+                first_y = last.get_y();
+                last_x = last.get_x();
+                last_y = first.get_y();
+            }
+            bigrams[i].set_first(matriks_key[first_x][first_y]);
+            bigrams[i].set_last(matriks_key[last_x][last_y]);
+        }
+        return this.get_bigram_string(bigrams);
     }
 
     @Override

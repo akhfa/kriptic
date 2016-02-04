@@ -224,7 +224,7 @@ public class Kriptic extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(Kunci_textbox.getText().length() == 0 || Asal_text.getText().length() == 0 || 
                 Kunci_textbox.getText().length() >= 25)
-            JOptionPane.showMessageDialog(Kriptic.this, "Kunci terlalu panjang. Maksimal hanya 25 karakter");
+            JOptionPane.showMessageDialog(Kriptic.this, "Textbox harus diisi dan kunci harus berisi 0 - 25 karakter");
         else
         {
             if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
@@ -257,7 +257,7 @@ public class Kriptic extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(Kunci_textbox.getText().length() == 0 || Asal_text.getText().length() == 0 || 
                 Kunci_textbox.getText().length() >= 25)
-            JOptionPane.showMessageDialog(Kriptic.this, "Kunci terlalu panjang. Maksimal hanya 25 karakter");
+            JOptionPane.showMessageDialog(Kriptic.this, "Textbox harus diisi dan kunci harus berisi 0 - 25 karakter");
         else
         {
             if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)

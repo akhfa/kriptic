@@ -134,6 +134,11 @@ public class Kriptic extends javax.swing.JFrame {
         });
 
         Exit_button.setText("Exit");
+        Exit_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Exit_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -337,6 +342,11 @@ public class Kriptic extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_Save_buttonActionPerformed
+
+    private void Exit_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_buttonActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_Exit_buttonActionPerformed
     
     private void setOutput(String value)
     {

@@ -138,7 +138,7 @@ public class Playfair implements Enkripsi{
     private char [][] get_matrix_key ()
     {
         String new_kunci = this.kunci.replaceAll(" ", "").toUpperCase();
-        String unique_key = this.get_string_unique_char(this.kunci);
+        String unique_key = this.get_string_unique_char(this.kunci.toUpperCase());
         char [][] matrix_key = new char[5][5];
         char [] unique_key_array = unique_key.toCharArray();
         int i = 0;

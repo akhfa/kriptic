@@ -217,56 +217,68 @@ public class Kriptic extends javax.swing.JFrame {
 
     private void Encrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Encrypt_buttonActionPerformed
         // TODO add your handling code here:
-        if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
-        {
-            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
-            result = vigenere.encrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
-        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
-        {
-            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
-            result = vigenere.encrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
-        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
-        {
-            Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
-            result = playfair.encrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
+        if(Kunci_textbox.getText().length() == 0 || Asal_text.getText().length() == 0 || 
+                Kunci_textbox.getText().length() >= 25)
+            JOptionPane.showMessageDialog(Kriptic.this, "Kunci terlalu panjang. Maksimal hanya 25 karakter");
         else
-            JOptionPane.showMessageDialog(null, "salah");
+        {
+            if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
+            {
+                Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
+                result = vigenere.encrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
+            {
+                Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
+                result = vigenere.encrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
+            {
+                Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
+                result = playfair.encrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else
+                JOptionPane.showMessageDialog(null, "salah");
+        }
     }//GEN-LAST:event_Encrypt_buttonActionPerformed
 
     private void Decrypt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Decrypt_buttonActionPerformed
         // TODO add your handling code here:
-        if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
-        {
-            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
-            result = vigenere.decrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
-        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
-        {
-            Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
-            result = vigenere.decrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
-        else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
-        {
-            Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
-            result = playfair.decrypt();
-            String value = show_combobox.getSelectedItem().toString();
-            this.setOutput(value);
-        }
+        if(Kunci_textbox.getText().length() == 0 || Asal_text.getText().length() == 0 || 
+                Kunci_textbox.getText().length() >= 25)
+            JOptionPane.showMessageDialog(Kriptic.this, "Kunci terlalu panjang. Maksimal hanya 25 karakter");
         else
-            JOptionPane.showMessageDialog(null, "salah");
+        {
+            if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_basic") == 0)
+            {
+                Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), true);
+                result = vigenere.decrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("vigenere_ext") == 0)
+            {
+                Vigenere vigenere = new Vigenere(Asal_text.getText(), Kunci_textbox.getText(), false);
+                result = vigenere.decrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else if(Enkripsi_grup.getSelection().getActionCommand().compareTo("playfair") == 0)
+            {
+                Playfair playfair = new Playfair(Asal_text.getText(), Kunci_textbox.getText());
+                result = playfair.decrypt();
+                String value = show_combobox.getSelectedItem().toString();
+                this.setOutput(value);
+            }
+            else
+                JOptionPane.showMessageDialog(null, "salah");
+        }
     }//GEN-LAST:event_Decrypt_buttonActionPerformed
 
     private void show_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_comboboxActionPerformed

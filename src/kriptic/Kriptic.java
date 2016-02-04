@@ -6,7 +6,15 @@
 package kriptic;
 
 import com.google.common.base.Splitter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +24,7 @@ import javax.swing.JOptionPane;
 public class Kriptic extends javax.swing.JFrame {
 
     String result;
-    
+    JFileChooser fc;
     /**
      * Creates new form Kriptic
      */
@@ -57,6 +65,7 @@ public class Kriptic extends javax.swing.JFrame {
         vigenere_ext_radio = new javax.swing.JRadioButton();
         playfair_radio = new javax.swing.JRadioButton();
         show_combobox = new javax.swing.JComboBox<>();
+        Open_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kriptic");
@@ -107,6 +116,13 @@ public class Kriptic extends javax.swing.JFrame {
             }
         });
 
+        Open_button.setText("Open File");
+        Open_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Open_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,8 +130,13 @@ public class Kriptic extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Open_button))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,22 +145,27 @@ public class Kriptic extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Encrypt_button)
-                                .addComponent(Decrypt_button)
-                                .addComponent(vigenere_basic_radio)
-                                .addComponent(vigenere_ext_radio, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(playfair_radio)
-                            .addComponent(show_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(show_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(vigenere_basic_radio)
+                                        .addComponent(vigenere_ext_radio, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(playfair_radio)
+                                    .addComponent(Encrypt_button)
+                                    .addComponent(Decrypt_button))))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(Open_button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -151,15 +177,15 @@ public class Kriptic extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Encrypt_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Decrypt_button)
-                        .addGap(18, 18, 18)
                         .addComponent(vigenere_basic_radio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(vigenere_ext_radio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(playfair_radio)))
+                        .addComponent(playfair_radio)
+                        .addGap(18, 18, 18)
+                        .addComponent(Encrypt_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Decrypt_button)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,6 +256,34 @@ public class Kriptic extends javax.swing.JFrame {
         this.setOutput(value);
 //        JOptionPane.showMessageDialog(null, value);
     }//GEN-LAST:event_show_comboboxActionPerformed
+
+    private void Open_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Open_buttonActionPerformed
+        // TODO add your handling code here:
+        fc = new JFileChooser();
+        int returnval = fc.showOpenDialog(Kriptic.this);
+        if(evt.getSource() == Open_button)
+        {
+            if(returnval == JFileChooser.APPROVE_OPTION)
+            {
+                File file = fc.getSelectedFile();
+                String text = "";
+                try (BufferedReader br = new BufferedReader(new FileReader(file))){
+                    String temp;
+                    while ((temp = br.readLine()) != null)
+                    {
+                        text += temp + "\n";
+                    }
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Kriptic.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Kriptic.class.getName()).log(Level.SEVERE, null, ex);
+                }finally{
+                    Asal_text.setText(text);
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_Open_buttonActionPerformed
     
     private void setOutput(String value)
     {
@@ -304,6 +358,7 @@ public class Kriptic extends javax.swing.JFrame {
     private javax.swing.ButtonGroup Enkripsi_grup;
     private javax.swing.JTextArea Hasil_text;
     private javax.swing.JTextField Kunci_textbox;
+    private javax.swing.JButton Open_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
